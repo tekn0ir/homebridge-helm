@@ -13,6 +13,16 @@ entries:
     version: 0.0.1
   - apiVersion: v2
     appVersion: 0.0.0
+    created: "2025-12-31T10:01:12.978402413Z"
+    description: A Helm chart for Homebridge
+    digest: 0e4c0559858795a64417094b7dd4a977f225590fb04baa6f9f474ce7a0323449
+    name: homebridge
+    type: application
+    urls:
+    - https://github.com/tekn0ir/homebridge-helm/releases/download/homebridge-0.0.1-dev.3/homebridge-0.0.1-dev.3.tgz
+    version: 0.0.1-dev.3
+  - apiVersion: v2
+    appVersion: 0.0.0
     created: "2025-12-31T09:33:03.692837024Z"
     description: A Helm chart for Homebridge
     digest: 0b05641002792dedb52aac1953c82eae6fc2753ad615baca24e1b636e959c229
@@ -51,4 +61,4 @@ entries:
     urls:
     - https://github.com/tekn0ir/homebridge-helm/releases/download/homebridge-0.0.0-dev/homebridge-0.0.0-dev.tgz
     version: 0.0.0-dev
-generated: "2025-12-31T09:33:03.692986513Z"
+generated: "2025-12-31T10:01:12.978446455Z"
