@@ -80,6 +80,10 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /homebridge
+            - name: dbus-socket
+              mountPath: /var/run/dbus
+            - name: avahi-socket
+              mountPath: /var/run/avahi-daemon/socket
       volumes:
         - name: data
           hostPath:
@@ -88,3 +92,11 @@ spec:
         - name: config-files
           configMap:
             name: homebridge-settings
+        - name: dbus-socket
+          hostPath:
+            path: /var/run/dbus
+            type: Directory
+        - name: avahi-socket
+          hostPath:
+            path: /var/run/avahi-daemon/socket
+            type: Socket
