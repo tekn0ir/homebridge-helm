@@ -20,6 +20,8 @@ spec:
 {{/*      annotations:*/}}
 {{/*        checksum/settings: {{ include (print $.Template.BasePath "/configmap_settings.yaml") $ | sha256sum }}*/}}
     spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: homebridge
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
