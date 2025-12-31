@@ -1,6 +1,11 @@
 # Homebridge container configuration
-image:
+homebridgeImage:
   repository: homebridge/homebridge
+  tag: latest
+  pullPolicy: Always
+
+knxdImage:
+  repository: tekn0ir/knxd
   tag: latest
   pullPolicy: Always
 

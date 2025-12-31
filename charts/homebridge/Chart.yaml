@@ -3,5 +3,5 @@ name: homebridge
 description: A Helm chart for Homebridge
 
 type: application
-version: 0.0.1-dev.2
+version: 0.0.1-dev.3
 appVersion: "0.0.0"

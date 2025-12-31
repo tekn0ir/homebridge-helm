@@ -23,9 +23,17 @@ spec:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       containers:
+        - name: knxd
+          image: {{ .Values.knxdImage.repository }}:{{ .Values.knxdImage.tag }}
+          imagePullPolicy: {{ .Values.knxdImage.pullPolicy }}
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: dev
+              mountPath: /dev
         - name: homebridge
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: {{ .Values.homebridgeImage.repository }}:{{ .Values.homebridgeImage.tag }}
+          imagePullPolicy: {{ .Values.homebridgeImage.pullPolicy }}
           ports:
             - name: http-homebridge
               containerPort: 8581
@@ -81,3 +89,7 @@ spec:
           hostPath:
             path: /var/run/avahi-daemon/socket
             type: Socket
+        - name: dev
+          hostPath:
+            path: /dev
+            type: Directory
