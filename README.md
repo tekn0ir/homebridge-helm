@@ -1,0 +1,1 @@
+charts/homebridge/README.md
