@@ -29,6 +29,8 @@ spec:
           ports:
             - name: http-homebridge
               containerPort: 8581
+            - name: tcp-hap
+              containerPort: 32235
           startupProbe:
             httpGet:
               path: /
@@ -64,20 +66,8 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /homebridge
-            - name: dbus-socket
-              mountPath: /var/run/dbus
-            - name: avahi-socket
-              mountPath: /var/run/avahi-daemon/socket
       volumes:
         - name: data
           hostPath:
             path: /opt/tekn0ir/homebridge
             type: DirectoryOrCreate
-        - name: dbus-socket
-          hostPath:
-            path: /var/run/dbus
-            type: Directory
-        - name: avahi-socket
-          hostPath:
-            path: /var/run/avahi-daemon/socket
-            type: Socket

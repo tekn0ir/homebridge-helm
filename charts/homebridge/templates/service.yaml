@@ -16,5 +16,12 @@ spec:
       {{- if .Values.nodePort.enabled }}
       nodePort: 31581
       {{- end }}
+    - name: tcp-hap
+      port: 32235
+      targetPort: 32235
+      protocol: TCP
+      {{- if .Values.nodePort.enabled }}
+      nodePort: 32235
+      {{- end }}
   selector:
     app: homebridge
