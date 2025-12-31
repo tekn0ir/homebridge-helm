@@ -26,8 +26,6 @@ spec:
         - name: knxd
           image: {{ .Values.knxdImage.repository }}:{{ .Values.knxdImage.tag }}
           imagePullPolicy: {{ .Values.knxdImage.pullPolicy }}
-          securityContext:
-            privileged: true
           volumeMounts:
             - name: dev
               mountPath: /dev
