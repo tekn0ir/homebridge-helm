@@ -1,0 +1,8 @@
+apiVersion: v2
+name: homebridge
+description: A Helm chart for Homebridge
+
+
+type: application
+version: 0.0.0
+appVersion: "4.0.2"

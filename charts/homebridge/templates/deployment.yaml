@@ -1,0 +1,81 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homebridge
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: homebridge
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: homebridge
+  template:
+    metadata:
+      labels:
+        app: homebridge
+{{/*      annotations:*/}}
+{{/*        checksum/settings: {{ include (print $.Template.BasePath "/configmap_settings.yaml") $ | sha256sum }}*/}}
+    spec:
+      containers:
+        - name: homebridge
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http-homebridge
+              containerPort: 8581
+          startupProbe:
+            httpGet:
+              path: /
+              port: 8581
+            periodSeconds: 10
+            failureThreshold: 30
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8581
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8581
+            periodSeconds: 60
+            failureThreshold: 5
+            timeoutSeconds: 2
+          env:
+            - name: TZ
+              value: {{ .Values.timezone }}
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
+          volumeMounts:
+            - name: data
+              mountPath: /homebridge
+            - name: dbus-socket
+              mountPath: /var/run/dbus
+            - name: avahi-socket
+              mountPath: /var/run/avahi-daemon/socket
+      volumes:
+        - name: data
+          hostPath:
+            path: /opt/tekn0ir/homebridge
+            type: DirectoryOrCreate
+        - name: dbus-socket
+          hostPath:
+            path: /var/run/dbus
+            type: Directory
+        - name: avahi-socket
+          hostPath:
+            path: /var/run/avahi-daemon/socket
+            type: Socket

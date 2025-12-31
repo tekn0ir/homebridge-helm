@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homebridge
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: homebridge
+spec:
+  type: {{ if .Values.nodePort.enabled }}NodePort{{ else }}ClusterIP{{ end }}
+  ports:
+    - name: http-homebridge
+      port: 8581
+      targetPort: 8581
+      protocol: TCP
+      {{- if .Values.nodePort.enabled }}
+      nodePort: 31581
+      {{- end }}
+  selector:
+    app: homebridge
